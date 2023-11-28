@@ -5,37 +5,6 @@ const {
   addContact,
 } = require("./contacts");
 
-// async function testContactFunctions() {
-//   // list Contacts
-//   console.log("List of Contacts:");
-//   const allContacts = await listContacts();
-//   console.log(allContacts);
-
-//   // Search contact by id
-//   console.log("Get Contact by ID:");
-//   const contactId = "qdggE76Jtbfd9eWJHrssH";
-//   const contactById = await getContactById(contactId);
-//   console.log(contactById);
-
-//   // Remove contact by id
-//   console.log("Remove Contact by ID:");
-//   const contactToRemoveId = "vza2RIzNGIwutCVCs4mCL";
-//   const removedContact = await removeContact(contactToRemoveId);
-//   console.log("Removed Contact:", removedContact);
-
-//   // Add contact
-//   console.log("Add New Contact:");
-//   const newContact = await addContact("Mango", "mango@gmail.com", "322-22-22");
-//   console.log("New Contact:", newContact);
-
-//   // Refresh list Contacts
-//   console.log("Updated List of Contacts:");
-//   const updatedContacts = await listContacts();
-//   console.log(updatedContacts);
-// }
-
-// testContactFunctions();
-
 const { Command } = require("commander");
 const program = new Command();
 program
