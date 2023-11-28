@@ -3,30 +3,32 @@ const path = require("path");
 
 const contactsPath = path.join(__dirname, "db", "contacts.json");
 
-async function listContacts() {
-  // ...твій код. Повертає масив контактів.
+async function catchErrorWrapper(asyncFunction) {
   try {
-    const data = await fs.readFile(contactsPath, "utf8");
-    return JSON.parse(data);
+    return await asyncFunction();
   } catch (error) {
     console.error(error.message);
   }
+}
+
+async function listContacts() {
+  return catchErrorWrapper(async () => {
+    const data = await fs.readFile(contactsPath, "utf8");
+    return JSON.parse(data);
+  });
 }
 
 async function getContactById(contactId) {
   // ...твій код. Повертає об'єкт контакту з таким id. Повертає null, якщо контакт з таким id не знайдений.
-  try {
+  return catchErrorWrapper(async () => {
     const contacts = await listContacts();
     return contacts.find((contact) => contact.id === contactId);
-  } catch (error) {
-    console.error(error.message);
-    return null;
-  }
+  });
 }
 
 async function removeContact(contactId) {
   // ...твій код. Повертає об'єкт видаленого контакту. Повертає null, якщо контакт з таким id не знайдений.
-  try {
+  return catchErrorWrapper(async () => {
     const contacts = await listContacts();
     const index = contacts.findIndex((contact) => contact.id === contactId);
 
@@ -39,15 +41,12 @@ async function removeContact(contactId) {
       );
       return removedContact;
     }
-  } catch (error) {
-    console.error(error.message);
-    return null;
-  }
+  });
 }
 
 async function addContact(name, email, phone) {
   // ...твій код. Повертає об'єкт доданого контакту.
-  try {
+  return catchErrorWrapper(async () => {
     const newContact = { id: Date.now(), name, email, phone };
     const contacts = await listContacts();
     contacts.push(newContact);
@@ -57,9 +56,7 @@ async function addContact(name, email, phone) {
       "utf-8"
     );
     return newContact;
-  } catch (error) {
-    console.error(error.message);
-  }
+  });
 }
 
 module.exports = {
